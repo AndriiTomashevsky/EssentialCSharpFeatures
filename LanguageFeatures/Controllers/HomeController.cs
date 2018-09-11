@@ -1,6 +1,4 @@
-﻿using LanguageFeatures.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageFeatures.Controllers
 {
@@ -8,13 +6,18 @@ namespace LanguageFeatures.Controllers
     {
         public ViewResult Index()
         {
-            Dictionary<string, Product> products = new Dictionary<string, Product>
-            {
-                ["Kayak"] = new Product { Name = "Kayak", Price = 275M },
-                ["Lifejacket"] = new Product { Name = "Lifejacket", Price = 48.95M }
-            };
+            object[] data = new object[] { 275M, 29.95M, "apple", "orange", 100, 10 };
+            decimal total = 0;
 
-            return View("Index", products.Keys);
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] is decimal d) // The is keyword performs a type check, and if a value is of the specified type, it will assign the value to a new variable
+                {
+                    total += d;
+                }
+            }
+
+            return View("Index", new string[] { $"Total: {total:C2}" });
         }
     }
 }
