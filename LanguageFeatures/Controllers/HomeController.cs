@@ -11,9 +11,15 @@ namespace LanguageFeatures.Controllers
 
             for (int i = 0; i < data.Length; i++)
             {
-                if (data[i] is decimal d) // The is keyword performs a type check, and if a value is of the specified type, it will assign the value to a new variable
+                switch (data[i])
                 {
-                    total += d;
+                    case decimal decimalValue: // This case statement matches any decimal value and assigns it to a new variable called decimalValue.
+                        total += decimalValue;
+                        break;
+                    case int intValue when intValue > 50: // This case statement matches int values and assigns them to a variable called intValue, 
+                                                          //but only when the value is greater than 50.
+                        total += intValue;
+                        break;
                 }
             }
 
