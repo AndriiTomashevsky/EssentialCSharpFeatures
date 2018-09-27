@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LanguageFeatures.Models
 {
@@ -27,5 +28,19 @@ namespace LanguageFeatures.Models
                 }
             }
         }
+
+        public static IEnumerable<Product> Filter(this IEnumerable<Product> productEnum, Func<Product, int, bool> selector)
+        {
+            int count = productEnum.Count();
+
+            foreach (Product prod in productEnum)
+            {
+                if (selector(prod, count))
+                {
+                    yield return prod;
+                }
+            }
+        }
+
     }
 }
