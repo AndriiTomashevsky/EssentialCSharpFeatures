@@ -27,8 +27,8 @@ namespace LanguageFeatures.Controllers
                 return prod?.Name?[0] == 'S';
             };
 
-            decimal priceFilterTotal = productArray.Filter(FilterByPrice).TotalPrices();
-            decimal nameFilterTotal = productArray.Filter(nameFilter).TotalPrices();
+            decimal priceFilterTotal = productArray.Filter(p => (p?.Price ?? 0) >= 20).TotalPrices();
+            decimal nameFilterTotal = productArray.Filter(p => p?.Name?[0] == 'S').TotalPrices();
 
             return View("Index", new string[] { $"Price Total: {priceFilterTotal:C2}", $"Name Total: {nameFilterTotal:C2}" });
         }
